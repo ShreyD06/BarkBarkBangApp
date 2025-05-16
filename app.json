@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "reactproject",
     "name": "React_project",
     "slug": "React_project",
     "version": "1.0.0",
@@ -24,6 +25,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

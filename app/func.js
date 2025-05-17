@@ -5,6 +5,7 @@
 //     return res.json({ success: true, message: "Data received!" });
 //   };
 
+
 export default async ({req, res, log, error}) => {
     log("received update")
     log(req.bodyJson)

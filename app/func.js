@@ -1,5 +1,3 @@
-
-
 // module.exports = async ({ req, res, log }) => {
 //     context.log("Received Google Sheets update");
 //     context.log(req.body); // Logs the data Google sent

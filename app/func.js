@@ -13,8 +13,12 @@
 //     return res.json({ success: true, message: "Data received!" })
 // }
 
-module.exports = async function (req, res) {
+module.exports = async function (req) {
     console.log("Function executed!");
-    return { message: "This is a response!" };
+    log(req.bodyText);
+    return {
+      message: "This is a response!"
+    };
   };
+  
   

@@ -6,10 +6,15 @@
 //   };
 
 
-export default async ({req, res, log, error}) => {
-    log("received update")
-    log(req.bodyJson)
+// export default async ({req, res, log, error}) => {
+//     log("received update")
+//     log(req.bodyJson)
 
-    return res.json({ success: true, message: "Data received!" })
-}
+//     return res.json({ success: true, message: "Data received!" })
+// }
+
+module.exports = async function (req, res) {
+    console.log("Function executed!");
+    res.json({ ok: true });
+  };
   

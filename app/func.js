@@ -15,6 +15,6 @@
 
 module.exports = async function (req, res) {
     console.log("Function executed!");
-    return res.json({ message: "This is a response!" });
+    return { message: "This is a response!" };
   };
   

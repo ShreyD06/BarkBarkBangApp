@@ -14,8 +14,8 @@
 // }
 
 module.exports = async function (req) {
-    console.log("Function executed!");
-    log(req.bodyText);
+    context.log("Function executed!");
+    context.log(req.bodyText);
     return {
       message: "This is a response!"
     };

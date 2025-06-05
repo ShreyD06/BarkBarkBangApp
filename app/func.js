@@ -17,7 +17,7 @@ module.exports = async function (req) {
     console.log("Function executed!");
     let body;
     try {
-        body = JSON.parse(req.bodyRaw || '{}');
+        body = JSON.parse(req.payload || '{}');
     } catch (e) {
         console.error("Invalid JSON", e);
     }

@@ -17,11 +17,11 @@ module.exports = async function (req) {
     console.log("Function executed!");
     let body;
     try {
-        body = JSON.parse(req.payload || '{}');
+        body = JSON.parse(req.bodyRaw || '{}');
     } catch (e) {
         console.error("Invalid JSON", e);
     }
-    console.log(req.bodyRaw);
+    console.log(body);
     console.log(req.headers);
     return {
       message: "This is a response!"

@@ -23,6 +23,7 @@ module.exports = async function (req) {
     }
     console.log(body);
     console.log(req.bodyRaw);
+    console.log(JSON.stringify(req.headers))
     return {
       message: "This is a response!"
     };

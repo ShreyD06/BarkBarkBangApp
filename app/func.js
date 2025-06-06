@@ -21,9 +21,9 @@ module.exports = async function (req) {
     } catch (e) {
         console.error("Invalid JSON", e);
     }
-    context.log(body);
-    context.log(req.bodyRaw);
-    context.log(JSON.stringify(req.headers))
+    console.log(JSON.parse(body.data || '{}'));
+    console.log(req.bodyRaw);
+    
     return {
       message: "This is a response!"
     };

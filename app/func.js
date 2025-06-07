@@ -44,7 +44,7 @@ module.exports = async function (req) {
     
     let body;
     try {
-      body = JSON.parse(req.bodyRaw || '{}');
+      body = await JSON.parse(req.bodyRaw || '{}');
       console.log("Successfully parsed body:", body);
       console.log("Body type:", typeof body);
       console.log("Body keys:", Object.keys(body));

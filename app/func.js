@@ -29,101 +29,64 @@
 //   };
 
 
-module.exports = async function (req, res) {
+module.exports = async function (req) {
     console.log("=== FUNCTION EXECUTED ===");
-    
-    // Log ALL available properties on the req object
-    console.log("Available req properties:", Object.keys(req));
     
     // Log the raw request details
     console.log("req.bodyRaw:", req.bodyRaw);
     console.log("req.bodyRaw type:", typeof req.bodyRaw);
     console.log("req.bodyRaw length:", req.bodyRaw ? req.bodyRaw.length : 'N/A');
     
-    // Check other possible body properties
-    console.log("req.body:", req.body);
-    console.log("req.payload:", req.payload);
-    console.log("req.data:", req.data);
-    
     // Log other request properties
     console.log("req.headers:", JSON.stringify(req.headers, null, 2));
     console.log("req.method:", req.method);
     console.log("req.url:", req.url);
-    console.log("req.query:", req.query);
-    console.log("req.path:", req.path);
     
-    // let parsedData;
+    let body;
+    try {
+      body = JSON.parse(req.bodyRaw || '{}');
+      console.log("Successfully parsed body:", body);
+      console.log("Body type:", typeof body);
+      console.log("Body keys:", Object.keys(body));
+    } catch (e) {
+      console.error("Invalid JSON in bodyRaw:", e.message);
+      console.log("Raw body that failed to parse:", req.bodyRaw);
+      return {
+        error: "Invalid JSON in request body",
+        rawBody: req.bodyRaw
+      };
+    }
     
-    // // Try different approaches to get the data
-    // try {
-    //   // Method 1: Check if bodyRaw contains the data directly
-    //   if (req.bodyRaw) {
-    //     console.log("Attempting to parse bodyRaw directly...");
-    //     parsedData = JSON.parse(req.bodyRaw);
-    //     console.log("Successfully parsed bodyRaw:", parsedData);
-    //   } 
-    //   // Method 2: Check if body property exists (for domain-based executions)
-    //   else if (req.body) {
-    //     console.log("Using req.body...");
-    //     parsedData = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    //     console.log("Successfully got body data:", parsedData);
-    //   }
-    //   // Method 3: For execution API, the data might be nested
-    //   else {
-    //     console.log("Trying to find nested data...");
-    //     // Sometimes the execution API wraps data differently
-    //     const bodyData = req.bodyRaw ? JSON.parse(req.bodyRaw) : {};
-        
-    //     // Check if there's a 'body' property in the parsed data
-    //     if (bodyData.body) {
-    //       parsedData = typeof bodyData.body === 'string' ? JSON.parse(bodyData.body) : bodyData.body;
-    //       console.log("Found data in nested body:", parsedData);
-    //     } else {
-    //       parsedData = bodyData;
-    //       console.log("Using bodyData directly:", parsedData);
-    //     }
-    //   }
-    // } catch (e) {
-    //   console.error("Failed to parse request data:", e.message);
-    //   console.log("Raw data that failed to parse:", req.bodyRaw);
-      
-    //   return res.json({
-    //     error: "Invalid JSON in request",
-    //     rawBody: req.bodyRaw,
-    //     body: req.body,
-    //     success: false
-    //   });
-    // }
+    // Check if body.data exists
+    console.log("body.data exists:", 'data' in body);
+    console.log("body.data value:", body.data);
+    console.log("body.data type:", typeof body.data);
     
-    // // Process the parsed data
-    // console.log("Final parsed data:", parsedData);
-    // console.log("Data type:", typeof parsedData);
-    // console.log("Data keys:", parsedData ? Object.keys(parsedData) : 'No keys');
+    // Try to parse body.data safely
+    let formData;
+    try {
+      if (body.data) {
+        formData = JSON.parse(body.data);
+        console.log("Successfully parsed formData:", formData);
+      } else {
+        console.log("No 'data' property found in body");
+        formData = body; // Maybe the data is directly in body
+      }
+    } catch (e) {
+      console.error("Failed to parse body.data:", e.message);
+      console.log("body.data that failed to parse:", body.data);
+      return {
+        error: "Invalid JSON in data property",
+        bodyData: body.data
+      };
+    }
     
-    // // Check for your expected data fields
-    // if (parsedData && parsedData.rowIndex) {
-    //   console.log("Row index:", parsedData.rowIndex);
-    //   console.log("Updated at:", parsedData.updatedAt);
-      
-    //   // Process your sheet data here
-    //   // For example, you could save to a database, send notifications, etc.
-      
-    //   return res.json({
-    //     message: "Successfully processed sheet update!",
-    //     receivedData: parsedData,
-    //     rowIndex: parsedData.rowIndex,
-    //     success: true
-    //   });
-    // } else {
-    //   console.log("Expected data structure not found");
-    //   return res.json({
-    //     message: "Data received but structure unexpected",
-    //     receivedData: parsedData,
-    //     success: false
-    //   });
-    // }
-
-    return "response";
+    return {
+      message: "Debug complete!",
+      receivedBody: body,
+      parsedFormData: formData,
+      success: true
+    };
   };
 
   

@@ -33,7 +33,7 @@ module.exports = async function (req) {
     console.log("=== FUNCTION EXECUTED ===");
     
     // Log the raw request details
-    console.log("req.bodyRaw:", req.bodyRaw);
+    console.log("req.bodyRaw:", await req.bodyRaw);
     console.log("req.bodyRaw type:", typeof req.bodyRaw);
     console.log("req.bodyRaw length:", req.bodyRaw ? req.bodyRaw.length : 'N/A');
     

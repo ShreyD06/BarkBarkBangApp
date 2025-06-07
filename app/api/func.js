@@ -89,13 +89,12 @@
 //     };
 //   };
 
-export default function handler(req, res) {
-    const data = req.body;
-    console.log('Sheet updated:', data);
-    
-    // Your processing logic here
-    
-    res.json({ received: true, timestamp: new Date().toISOString() });
-  }
+module.exports = (req, res) => {
+  console.log(req.body);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify({ message: 'Hello from Node.js on Vercel!' }));
+};
+
   
   

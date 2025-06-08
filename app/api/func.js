@@ -89,12 +89,16 @@
 //     };
 //   };
 
-module.exports = (req, res) => {
-  console.log(req.body);
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(JSON.stringify({ message: 'Hello from Node.js on Vercel!' }));
-};
+// module.exports = (req, res) => {
+//   console.log(req.body);
+//   res.statusCode = 200;
+//   res.setHeader('Content-Type', 'application/json');
+//   res.end(JSON.stringify({ message: 'Hello from Node.js on Vercel!' }));
+// };
+
+export function GET(request) {
+  return new Response('Hello from Vercel!');
+}
 
   
   
